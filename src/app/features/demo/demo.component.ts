@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { GridComponent } from '../../common/datagrid/components/grid/grid.component';
-import { ColumnComponent } from '../../common/datagrid/components/column/column.component';
+import { GridComponent } from '../../common/grid/grid.component';
+import { ColumnComponent } from '../../common/grid/components/column/column.component';
 import { countries } from '../../../mocks/countries';
 
 @Component({

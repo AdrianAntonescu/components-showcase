@@ -10,11 +10,11 @@ import {
 import { isObservable, Observable, of, switchMap } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
-import { ColumnComponent } from '../column/column.component';
-import { Direction } from '../../models/direction.enum';
-import { SortChange } from '../../models/sort-change.model';
-import { PaginationChange } from '../../models/pagination-change.model';
-import { PaginatorComponent } from '../paginator/paginator.component';
+import { ColumnComponent } from './components/column/column.component';
+import { Direction } from './models/direction.enum';
+import { SortChange } from './models/sort-change.model';
+import { PaginationChange } from './models/pagination-change.model';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @Component({
   selector: 't-grid',
@@ -93,7 +93,10 @@ export class GridComponent<T> {
   readonly pageSizeOptions = computed<number[]>(() => {
     const totalSize = this.gridData().length;
 
-    return Array.from({ length: Math.ceil(totalSize / 5) }, (_, i) => (i + 1) * 5);
+    return Array.from(
+      { length: Math.ceil(totalSize / 5) },
+      (_, i) => (i + 1) * 5,
+    );
   });
 
   getCellData(row: T, column: ColumnComponent<T>): string {
