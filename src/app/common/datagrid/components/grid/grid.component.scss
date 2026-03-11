@@ -1,10 +1,4 @@
-$grid-primary-color: #fa4616;
-$grid-border: #d8dbe1;
-$grid-background: #ffffff;
-$grid-header-background: #f0eeee;
-$grid-row-hover: #fff3ee;
-$grid-text: #1f2937;
-$grid-text-subtle: #6b7280;
+@use 'variables' as *;
 
 :host {
   font-family: Arial, Helvetica, sans-serif;
@@ -24,7 +18,7 @@ $grid-text-subtle: #6b7280;
   font-size: 0.9rem;
 }
 
-thead th {
+th {
   padding: 0.75rem 1rem;
   text-align: left;
   font-size: 0.8rem;
@@ -35,7 +29,7 @@ thead th {
   border-bottom: 1px solid $grid-border;
 }
 
-tbody tr {
+tr {
   background-color: $grid-background;
 }
 
@@ -43,15 +37,11 @@ tbody tr:hover {
   background-color: $grid-row-hover;
 }
 
-tbody td {
+td {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid $grid-border;
   color: $grid-text;
   font-weight: 400;
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
 }
 
 .grid-empty-body tr,
@@ -62,7 +52,7 @@ tbody tr:last-child td {
 .grid-empty-cell {
   padding: 1.75rem 1rem;
   text-align: center;
-  font-weight: 500;
+  font-weight: 700;
   color: $grid-text-subtle;
 }
 
@@ -73,13 +63,13 @@ tbody tr:last-child td {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.4rem;
 }
 
 .icon {
   width: 1.3rem;
   height: 1.3rem;
-  background-color: #fa4616;
+  background-color: $grid-primary-color;
 }
 
 .ascending-icon {

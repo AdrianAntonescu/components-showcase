@@ -29,7 +29,7 @@
 
     @if (gridData().length) {
       <tbody>
-        @for (row of gridData(); track $index) {
+        @for (row of paginatedGridData(); track $index) {
           <tr>
             @for (column of columns(); track column.property()) {
               <td>{{ getCellData(row, column) }}</td>
@@ -45,6 +45,21 @@
           </td>
         </tr>
       </tbody>
+    }
+
+    @if (gridData().length) {
+      <tfoot>
+        <tr>
+          <td [attr.colspan]="columns().length">
+            <t-paginator
+              [totalItems]="gridData().length"
+              [pageSize]="pageSize()"
+              [pageSizeOptions]="pageSizeOptions()"
+              (paginationChange)="onPaginationChange($event)"
+            ></t-paginator>
+          </td>
+        </tr>
+      </tfoot>
     }
   </table>
 </div>

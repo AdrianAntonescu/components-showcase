@@ -8,7 +8,7 @@
 
 <h3>No pagination table</h3>
 
-<t-grid [data]="countries" [sortable]="true">
+<t-grid [data]="countries" [sortable]="true" [pageSize]="10">
   <t-column [name]="'name'" [property]="'name'" [sortable]="true"></t-column>
   <t-column [name]="'population'" [property]="'population'" [sortable]="true"></t-column>
   <t-column [name]="'currency'" [property]="'currency'"></t-column>

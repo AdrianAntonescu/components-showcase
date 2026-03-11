@@ -1,0 +1,24 @@
+<div class="paginator-container">
+  <div class="page-size-section">
+    <label for="pageSize">Page size:</label>
+    <select
+      id="pageSize"
+      [value]="actualPageSize()"
+      (change)="onPageSizeChange($event)"
+    >
+      @for (size of pageSizeOptions(); track size) {
+        <option [value]="size">{{ size }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="pagination-section">
+    <button type="button" [disabled]="!canGoBack()" (click)="onGoBack()">
+      Back
+    </button>
+    <span>{{ currentPage() }} / {{ totalPages() }}</span>
+    <button type="button" [disabled]="!canGoForward()" (click)="onGoForward()">
+      Forward
+    </button>
+  </div>
+</div>

@@ -14,10 +14,11 @@ import { ColumnComponent } from '../column/column.component';
 import { Direction } from '../../models/direction.enum';
 import { SortChange } from '../../models/sort-change.model';
 import { PaginationChange } from '../../models/pagination-change.model';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 @Component({
   selector: 't-grid',
-  imports: [],
+  imports: [PaginatorComponent],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,6 +37,7 @@ export class GridComponent<T> {
   readonly columns = contentChildren(ColumnComponent);
   readonly SORT_DIRECTION = Direction;
 
+  // Data received as input
   private readonly rawGridData = toSignal(
     toObservable(this.data).pipe(
       switchMap((data) => (isObservable(data) ? data : of(data))),
@@ -43,8 +45,8 @@ export class GridComponent<T> {
     { initialValue: [] as T[] },
   );
 
-  private readonly activeSort = signal<SortChange | null>(null);
-  readonly gridData = computed(() => {
+  // Sorted data (if sorting is applied)
+  readonly gridData = computed<T[]>(() => {
     const sort = this.activeSort();
 
     if (!sort || sort.direction === Direction.NONE) {
@@ -57,6 +59,41 @@ export class GridComponent<T> {
     return this.rawGridData().toSorted((rowA: T, rowB: T) => {
       return this.compareValues(rowA[columnName], rowB[columnName], direction);
     });
+  });
+
+  // Data to be displayed after applying pagination
+  readonly paginatedGridData = computed<T[]>(() => {
+    const rows = this.gridData();
+    const pageSize = this.actualPageSize();
+    const page = this.currentPage();
+    const startIndex = (page - 1) * pageSize;
+
+    return rows.slice(startIndex, startIndex + pageSize);
+  });
+
+  private readonly actualPageSize = computed<number>(() => {
+    const selectedSize = this.selectedPageSize();
+
+    if (selectedSize && selectedSize > 0) {
+      return selectedSize;
+    }
+
+    const inputPageSize = this.pageSize();
+
+    if (inputPageSize && inputPageSize > 0) {
+      return inputPageSize;
+    }
+
+    return this.gridData().length;
+  });
+
+  private readonly activeSort = signal<SortChange | null>(null);
+  private readonly currentPage = signal(1);
+  private readonly selectedPageSize = signal<number | null>(null);
+  readonly pageSizeOptions = computed<number[]>(() => {
+    const totalSize = this.gridData().length;
+
+    return Array.from({ length: Math.ceil(totalSize / 5) }, (_, i) => (i + 1) * 5);
   });
 
   getCellData(row: T, column: ColumnComponent<T>): string {
@@ -97,6 +134,12 @@ export class GridComponent<T> {
 
     this.activeSort.set({ columnName, direction });
     this.sortChange.emit({ columnName, direction });
+  }
+
+  onPaginationChange(pagination: PaginationChange): void {
+    this.currentPage.set(pagination.currentPage);
+    this.selectedPageSize.set(pagination.pageSize);
+    this.paginationChange.emit(pagination);
   }
 
   private getNextSortingDirection(currentDirection: Direction): Direction {
