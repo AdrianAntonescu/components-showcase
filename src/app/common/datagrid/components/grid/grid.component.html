@@ -1,0 +1,27 @@
+<div class="grid-container">
+  <table>
+    <thead>
+      @for (column of columns(); track column.property()) {
+        <th>{{ column.name() }}</th>
+      }
+    </thead>
+
+    @if (gridData().length) {
+      <tbody>
+        @for (row of gridData(); track $index) {
+          <tr>
+            @for (column of columns(); track column.property()) {
+              <td>{{ getCellData(row, column) }}</td>
+            }
+          </tr>
+        }
+      </tbody>
+    } @else {
+      <tbody>
+        <tr>
+          <td [attr.colspan]="columns().length">No data available</td>
+        </tr>
+      </tbody>
+    }
+  </table>
+</div>
