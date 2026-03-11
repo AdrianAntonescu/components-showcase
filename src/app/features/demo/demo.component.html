@@ -1,6 +1,16 @@
-<t-grid [data]="countries">
-  <t-column [name]="'Name'" [property]="'name'"></t-column>
-  <t-column [name]="'Population'" [property]="'population'"></t-column>
-  <t-column [name]="'Currency'" [property]="'currency'"></t-column>
-  <t-column [name]="'Language'" [property]="'language'"></t-column>
+<h3>No data table</h3>
+
+<t-grid [data]="[]">
+  <t-column [name]="'name'" [property]="'name'"></t-column>
+  <t-column [name]="'language'" [property]="'language'"></t-column>
+</t-grid>
+
+
+<h3>No pagination table</h3>
+
+<t-grid [data]="countries" [sortable]="true">
+  <t-column [name]="'name'" [property]="'name'" [sortable]="true"></t-column>
+  <t-column [name]="'population'" [property]="'population'" [sortable]="true"></t-column>
+  <t-column [name]="'currency'" [property]="'currency'"></t-column>
+  <t-column [name]="'language'" [property]="'language'"></t-column>
 </t-grid>

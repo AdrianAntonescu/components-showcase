@@ -1,0 +1,98 @@
+$grid-primary-color: #fa4616;
+$grid-border: #d8dbe1;
+$grid-background: #ffffff;
+$grid-header-background: #f0eeee;
+$grid-row-hover: #fff3ee;
+$grid-text: #1f2937;
+$grid-text-subtle: #6b7280;
+
+:host {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.grid-container {
+  overflow-x: auto;
+  border: 1px solid $grid-border;
+  border-radius: 8px;
+  background: $grid-background;
+}
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: $grid-text;
+  font-size: 0.9rem;
+}
+
+thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $grid-primary-color;
+  background: $grid-header-background;
+  border-bottom: 1px solid $grid-border;
+}
+
+tbody tr {
+  background-color: $grid-background;
+}
+
+tbody tr:hover {
+  background-color: $grid-row-hover;
+}
+
+tbody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid $grid-border;
+  color: $grid-text;
+  font-weight: 400;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.grid-empty-body tr,
+.grid-empty-body tr:hover {
+  background: $grid-background;
+}
+
+.grid-empty-cell {
+  padding: 1.75rem 1rem;
+  text-align: center;
+  font-weight: 500;
+  color: $grid-text-subtle;
+}
+
+.sortable-column-header {
+  cursor: pointer;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  background-color: #fa4616;
+}
+
+.ascending-icon {
+  mask: url("/assets/svg/ascending_icon.svg") no-repeat center;
+  mask-size: contain;
+}
+
+.descending-icon {
+  mask: url("/assets/svg/descending_icon.svg") no-repeat center;
+  mask-size: contain;
+}
+
+.sort-icon {
+  mask: url("/assets/svg/sort_icon.svg") no-repeat center;
+  mask-size: contain;
+}

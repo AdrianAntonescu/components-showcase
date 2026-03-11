@@ -1,8 +1,29 @@
 <div class="grid-container">
-  <table>
+  <table class="grid-table">
     <thead>
       @for (column of columns(); track column.property()) {
-        <th>{{ column.name() }}</th>
+        <th
+          [class.sortable-column-header]="isColumnSortable(column)"
+          (click)="onSort(column)"
+        >
+          <span class="header-content">
+            <span>{{ column.name() }}</span>
+
+            @if (isColumnSortable(column)) {
+              @switch (getColumnSortDirection(column)) {
+                @case (SORT_DIRECTION.ASC) {
+                  <span class="icon ascending-icon"></span>
+                }
+                @case (SORT_DIRECTION.DESC) {
+                  <span class="icon descending-icon"></span>
+                }
+                @default {
+                  <span class="icon sort-icon"></span>
+                }
+              }
+            }
+          </span>
+        </th>
       }
     </thead>
 
@@ -17,9 +38,11 @@
         }
       </tbody>
     } @else {
-      <tbody>
+      <tbody class="grid-empty-body">
         <tr>
-          <td [attr.colspan]="columns().length">No data available</td>
+          <td class="grid-empty-cell" [attr.colspan]="columns().length">
+            No data available
+          </td>
         </tr>
       </tbody>
     }
