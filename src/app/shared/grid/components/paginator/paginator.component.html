@@ -1,13 +1,11 @@
 <div class="paginator-container">
   <div class="page-size-section">
     <label for="pageSize">Page size:</label>
-    <select
-      id="pageSize"
-      [value]="actualPageSize()"
-      (change)="onPageSizeChange($event)"
-    >
+    <select id="pageSize" (change)="onPageSizeChange($event)">
       @for (size of pageSizeOptions(); track size) {
-        <option [value]="size">{{ size }}</option>
+        <option [value]="size" [selected]="size === selectedPageSizeOption()">
+          {{ size }}
+        </option>
       }
     </select>
   </div>

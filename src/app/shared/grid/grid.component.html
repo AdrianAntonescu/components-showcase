@@ -29,7 +29,7 @@
 
     @if (gridData().length) {
       <tbody>
-        @for (row of paginatedGridData(); track $index) {
+        @for (row of gridData(); track $index) {
           <tr>
             @for (column of columns(); track column.property()) {
               <td>{{ getCellData(row, column) }}</td>
@@ -52,7 +52,7 @@
         <tr>
           <td [attr.colspan]="columns().length">
             <t-paginator
-              [totalItems]="gridData().length"
+              [totalItems]="gridDataLength() ?? gridData().length"
               [pageSize]="pageSize()"
               [pageSizeOptions]="pageSizeOptions()"
               (paginationChange)="onPaginationChange($event)"

@@ -7,10 +7,11 @@ import {
   signal,
 } from '@angular/core';
 import { PaginationChange } from '../../../models/pagination-change.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 't-paginator',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
 })
@@ -22,27 +23,23 @@ export class PaginatorComponent {
   readonly paginationChange = output<PaginationChange>();
 
   readonly currentPage = signal(1);
-
-  readonly actualPageSize = computed<number>(() => {
-    const currentSize = this.pageSize();
-
-    if (currentSize && currentSize > 0) {
-      return currentSize;
-    }
-
-    return this.totalItems();
+  readonly selectedPageSizeOption = computed<number>(() => {
+    return this.pageSize() ?? this.maxPageSizeOption();
   });
-
-  readonly totalPages = computed<number>(() => {
-    const itemsCount = this.totalItems();
-
-    return Math.max(1, Math.ceil(itemsCount / this.actualPageSize()));
-  });
-  
   readonly canGoBack = computed<boolean>(() => this.currentPage() > 1);
   readonly canGoForward = computed<boolean>(
     () => this.currentPage() < this.totalPages(),
   );
+  readonly totalPages = computed<number>(() => {
+    return Math.max(1, Math.ceil(this.totalItems() / this.actualPageSize()));
+  });
+
+  private readonly actualPageSize = computed<number>(() => {
+    return this.pageSize() ?? this.totalItems();
+  });
+  private readonly maxPageSizeOption = computed<number>(() => {
+    return Math.max(...this.pageSizeOptions());
+  });
 
   onGoBack(): void {
     this.setPage(this.currentPage() - 1);
