@@ -1,1 +1,28 @@
-<p>progress works!</p>
+<svg
+  [attr.width]="svgSize()"
+  [attr.height]="svgSize()"
+  [attr.viewBox]="'0 0 ' + svgSize() + ' ' + svgSize()"
+  class="progress-spinner"
+>
+  <circle
+    class="spinner-track"
+    [attr.cx]="center()"
+    [attr.cy]="center()"
+    [attr.r]="innerRadius()"
+    [attr.stroke-width]="strokeWidth()"
+    fill="none"
+  />
+
+  <circle
+    class="spinner-progress"
+    [attr.cx]="center()"
+    [attr.cy]="center()"
+    [attr.r]="innerRadius()"
+    [attr.stroke]="color()"
+    [attr.stroke-width]="strokeWidth()"
+    [attr.stroke-dasharray]="circumference()"
+    [attr.stroke-dashoffset]="dashOffset()"
+    fill="none"
+    stroke-linecap="round"
+  />
+</svg>

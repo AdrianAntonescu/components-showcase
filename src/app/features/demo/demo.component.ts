@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  signal,
+} from '@angular/core';
 
 import { GridComponent } from '../../shared/components/grid/grid.component';
 import { ColumnComponent } from '../../shared/components/grid/components/column/column.component';
+import { ProgressComponent } from '../../shared/components/progress/progress.component';
 import { countries } from '../../../mocks/countries';
 import { PaginationChange } from '../../shared/models/pagination-change.model';
 import { SortChange } from '../../shared/models/sort-change.model';
@@ -23,17 +29,19 @@ interface NbaPlayer {
 
 @Component({
   selector: 't-demo',
-  imports: [GridComponent, ColumnComponent],
+  imports: [GridComponent, ColumnComponent, ProgressComponent],
   templateUrl: './demo.component.html',
   styleUrl: './demo.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DemoComponent {
+export class DemoComponent implements OnInit {
   readonly countries: Country[] = countries;
   readonly nbaPlayers: NbaPlayer[] = nbaPlayers;
 
   readonly countriesGridData = signal<Country[]>(this.countries);
   readonly nbaGridData = signal<NbaPlayer[]>(this.nbaPlayers);
+  readonly progressComplete = signal(false);
+  readonly progress = signal(0);
 
   private countriesCurrentPage = 1;
   private countriesCurrentPageSize: number | null = null;
@@ -41,6 +49,19 @@ export class DemoComponent {
 
   private nbaPlayersCurrentPage = 1;
   private nbaPlayersCurrentPageSize: number | null = null;
+
+  ngOnInit() {
+    // Simulate progress for the first grid
+    const interval = setInterval(() => {
+      this.progress.update((value) => {
+        if (value === 100) {
+          clearInterval(interval);
+        }
+        
+        return value + 10;
+      });
+    }, 500);
+  }
 
   // In a real application, this would be replaced by a real API call
   // with pagination and sorting capabilities; for the puropose of this exercise
@@ -74,6 +95,10 @@ export class DemoComponent {
         this.nbaPlayersCurrentPageSize,
       ),
     );
+  }
+
+  onProgressComplete(): void {
+    this.progressComplete.set(true);
   }
 
   private getSortedData(): Country[] {

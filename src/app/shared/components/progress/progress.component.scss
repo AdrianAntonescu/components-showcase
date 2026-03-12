@@ -1,0 +1,14 @@
+@use "variables" as *;
+
+.progress-spinner {
+  transform: rotate(-90deg);
+  display: inline-block;
+}
+
+.spinner-track {
+  stroke: $grid-header-background;
+}
+
+.spinner-progress {
+  transition: stroke-dashoffset 0.35s ease;
+}
