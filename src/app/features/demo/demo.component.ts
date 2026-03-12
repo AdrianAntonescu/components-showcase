@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
-import { GridComponent } from '../../shared/grid/grid.component';
-import { ColumnComponent } from '../../shared/grid/components/column/column.component';
+import { GridComponent } from '../../shared/components/grid/grid.component';
+import { ColumnComponent } from '../../shared/components/grid/components/column/column.component';
 import { countries } from '../../../mocks/countries';
 import { PaginationChange } from '../../shared/models/pagination-change.model';
 import { SortChange } from '../../shared/models/sort-change.model';

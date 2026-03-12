@@ -6,7 +6,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { PaginationChange } from '../../../models/pagination-change.model';
+import { PaginationChange } from '../../../../models/pagination-change.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({

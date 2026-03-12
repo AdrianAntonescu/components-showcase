@@ -12,9 +12,9 @@ import { isObservable, Observable, of, switchMap } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 import { ColumnComponent } from './components/column/column.component';
-import { Direction } from '../models/direction.enum';
-import { SortChange } from '../models/sort-change.model';
-import { PaginationChange } from '../models/pagination-change.model';
+import { Direction } from '../../models/direction.enum';
+import { SortChange } from '../../models/sort-change.model';
+import { PaginationChange } from '../../models/pagination-change.model';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @Component({
